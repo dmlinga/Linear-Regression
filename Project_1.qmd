@@ -1,0 +1,52 @@
+---
+title: "Linear Regression"
+author: "Daniel Mlinga"
+format: pdf
+editor: visual
+---
+
+Histogram for the Opening Price
+
+```{r}
+library(readr)
+GC_F <- read_csv("/Users/danielmlinga/Library/CloudStorage/OneDrive-CapitalUniversity/STAT 315/GC=F .csv")
+Stock <- GC_F
+hist(Stock$Open)
+summary(Stock$Open)
+```
+
+Histogram for the Closing price
+
+```{r}
+hist(Stock$Close)
+summary(Stock$Close)
+```
+
+Linear regression
+
+```{r}
+PricesModel <-lm(Stock$Close~Stock$Open)
+plot(Stock$Open, Stock$Close, xlab = "Opening_Price", ylab = "Closing_Price")
+abline(PricesModel)
+summary(PricesModel)
+```
+
+Histogram of residuals
+
+```{r}
+hist(PricesModel$residuals)
+```
+
+Normal Quantile Plot
+
+```{r}
+qqnorm(PricesModel$residuals)
+qqline(PricesModel$residuals)
+```
+
+Zero Mean Uniform Spread - Residual vs Fits plot
+
+```{r}
+plot(PricesModel$fitted.values, PricesModel$residuals, xlab = "Fits", ylab = "Residuals")
+abline(0,0)
+```
